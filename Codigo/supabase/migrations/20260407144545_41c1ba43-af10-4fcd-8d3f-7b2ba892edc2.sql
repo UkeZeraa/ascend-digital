@@ -1,0 +1,1 @@
+CREATE POLICY "Deny all selects on briefings" ON public.briefings FOR SELECT USING (false);

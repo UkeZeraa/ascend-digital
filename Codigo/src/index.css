@@ -1,0 +1,276 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* As fontes são carregadas via <link> em index.html (mais rápido que @import). */
+
+@layer base {
+  :root {
+    /* ── Paleta "Grafite & Aço" — dark sóbrio ──
+       Fundo #0B0D10 · Superfície #14171C · Superfície-2 #101319
+       Texto #E6E9EE · Muted #8A929E
+       Acento (azul elétrico) #4C82F7 · Acento-2 (teal) #22C3A6 · Destaque #FFFFFF */
+    --background: 214 16% 6%;
+    --foreground: 220 16% 92%;
+
+    --card: 219 15% 10%;
+    --card-foreground: 220 16% 92%;
+
+    --popover: 219 15% 10%;
+    --popover-foreground: 220 16% 92%;
+
+    --primary: 221 91% 63%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 219 12% 16%;
+    --secondary-foreground: 220 16% 92%;
+
+    --muted: 219 12% 16%;
+    --muted-foreground: 216 9% 58%;
+
+    --accent: 169 71% 45%;
+    --accent-foreground: 214 16% 6%;
+
+    --destructive: 0 72% 62%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 218 16% 16%;
+    --input: 218 16% 16%;
+    --ring: 221 91% 63%;
+
+    --radius: 14px;
+
+    /* Vars hex repropositadas: os nomes antigos continuam, o papel mudou.
+       --ink/--ink2 agora são TEXTO CLARO; --cream/--cream2 agora são SUPERFÍCIE ESCURA;
+       --orange agora é o AZUL de acento. */
+    --ink: #E6E9EE;
+    --ink2: #C4C9D2;
+    --bg: #0B0D10;
+    --surface: #14171C;
+    --surface-2: #101319;
+    --orange: #4C82F7;
+    --orange2: #3B71E8;
+    --orange-dim: rgba(76,130,247,0.12);
+    --amber: #E3B341;
+    --emerald: #22C3A6;
+    --cream: #14171C;
+    --cream2: #101319;
+    --sand: #232830;
+    --muted-color: #8A929E;
+    --white: #FFFFFF;
+
+    --sidebar-background: 216 16% 8%;
+    --sidebar-foreground: 220 10% 78%;
+    --sidebar-primary: 221 91% 63%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 219 12% 15%;
+    --sidebar-accent-foreground: 220 16% 92%;
+    --sidebar-border: 218 16% 16%;
+    --sidebar-ring: 221 91% 63%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* compensa a navbar fixa (68px) ao pular para uma âncora */
+    scroll-padding-top: 84px;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Outfit', sans-serif;
+  }
+  .font-body {
+    font-family: 'DM Sans', sans-serif;
+  }
+  .text-ink { color: var(--ink); }
+  .text-ink2 { color: var(--ink2); }
+  .text-orange { color: var(--orange); }
+  .text-emerald { color: var(--emerald); }
+  .text-amber { color: var(--amber); }
+  .text-muted-custom { color: var(--muted-color); }
+  .text-sand { color: var(--sand); }
+  .bg-page { background-color: var(--bg); }
+  .bg-surface { background-color: var(--surface); }
+  .bg-surface-2 { background-color: var(--surface-2); }
+  .bg-ink { background-color: var(--bg); }
+  .bg-ink2 { background-color: var(--ink2); }
+  .bg-emerald { background-color: var(--emerald); }
+  .border-emerald { border-color: var(--emerald); }
+  .bg-orange { background-color: var(--orange); }
+  .bg-orange2 { background-color: var(--orange2); }
+  .bg-orange-dim { background-color: var(--orange-dim); }
+  .bg-amber { background-color: var(--amber); }
+  .bg-cream { background-color: var(--cream); }
+  .bg-cream2 { background-color: var(--cream2); }
+  .bg-sand { background-color: var(--sand); }
+  .border-sand { border-color: var(--sand); }
+  .border-orange { border-color: var(--orange); }
+  .shadow-orange { box-shadow: 0 8px 28px rgba(76,130,247,0.22); }
+  .shadow-orange-lg { box-shadow: 0 14px 40px rgba(76,130,247,0.3); }
+}
+
+/* Troca de slide no carrossel de depoimentos (entra com fade + leve subida). */
+@keyframes tt-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.tt-card-anim {
+  animation: tt-in 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+@keyframes waping {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2s infinite;
+}
+
+.animate-waping {
+  animation: waping 2s ease-out infinite;
+}
+
+/* Reveal on scroll (usado pelo <Reveal>) — fade + leve subida */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* "Wipe" fino de cor entre um bloco e o próximo — cresce da esquerda quando o
+   .reveal pai entra em cena. */
+.section-wipe {
+  display: block;
+  height: 1px;
+  margin: 0 auto;
+  width: min(100%, 1100px);
+  background: linear-gradient(90deg, var(--orange), var(--emerald));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+}
+.reveal.visible .section-wipe {
+  transform: scaleX(1);
+}
+
+/* ── Textura "digital": grade de pontos sutil para seções escuras ── */
+.dot-grid {
+  background-image: radial-gradient(rgba(76, 130, 247, 0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* ── Cursor customizado (PointerFX / pointer-fx.js) ── */
+.has-custom-cursor,
+.has-custom-cursor a,
+.has-custom-cursor button,
+.has-custom-cursor [role="button"],
+.has-custom-cursor input,
+.has-custom-cursor textarea,
+.has-custom-cursor select,
+.has-custom-cursor label {
+  cursor: none;
+}
+
+/* Cursor "só ponto + rastro": ponto sólido instantâneo + um rastro maior,
+   translúcido e difuso, que trilha atrás via transition. mix-blend screen
+   pra brilhar sobre as superfícies escuras. */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  pointer-events: none;
+  border-radius: 50%;
+  opacity: 1;
+  mix-blend-mode: screen;
+  transition: opacity 0.25s ease;
+}
+.cursor-dot {
+  width: 9px;
+  height: 9px;
+  background: var(--orange);
+  transform: translate3d(var(--cursor-x, -100px), var(--cursor-y, -100px), 0) translate(-50%, -50%) scale(var(--cursor-dot-scale, 1));
+  transition: opacity 0.25s ease, transform 0.12s ease;
+}
+.cursor-ring {
+  width: 26px;
+  height: 26px;
+  background: radial-gradient(circle, rgba(76, 130, 247, 0.5) 0%, rgba(76, 130, 247, 0) 70%);
+  transform: translate3d(var(--cursor-x, -100px), var(--cursor-y, -100px), 0) translate(-50%, -50%) scale(var(--cursor-scale, 1));
+  transition: transform 0.18s cubic-bezier(0.33, 1, 0.68, 1), opacity 0.25s ease;
+  will-change: transform;
+}
+.has-custom-cursor.cursor-hot {
+  --cursor-scale: 1.9;
+  --cursor-dot-scale: 1.35;
+}
+.has-custom-cursor.cursor-down {
+  --cursor-scale: 0.7;
+  --cursor-dot-scale: 0.8;
+}
+.has-custom-cursor.cursor-hidden .cursor-dot,
+.has-custom-cursor.cursor-hidden .cursor-ring {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+  .section-wipe { transform: scaleX(1); opacity: 0.35; }
+}
+
+/* Sem cursor customizado / efeitos de ponteiro em toque ou movimento reduzido */
+@media (prefers-reduced-motion: reduce), (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring { display: none !important; }
+  .has-custom-cursor,
+  .has-custom-cursor * { cursor: auto; }
+  [data-tilt],
+  [data-magnetic],
+  [data-parallax] { transform: none !important; }
+}

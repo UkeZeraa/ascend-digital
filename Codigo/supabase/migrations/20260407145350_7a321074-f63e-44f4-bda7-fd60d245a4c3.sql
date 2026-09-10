@@ -1,0 +1,1 @@
+DROP POLICY "Validated briefing submissions" ON public.briefings;

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casos — Ascend Digital</title>
+<meta name="description" content="Exemplos de entregas de automação, dashboards de KPI e sites da Ascend Digital.">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/pointer-fx.css">
+<style>
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  :root {
+    /* Paleta "Grafite & Aço" — dark sóbrio */
+    --bg:#0B0D10; --surface:#14171C; --surface2:#101319;
+    --ink:#0B0D10; --ink2:#C4C9D2;
+    --text:#E6E9EE; --text2:#C4C9D2;
+    --orange:#4C82F7; --orange2:#3B71E8; --amber:#E3B341; --emerald:#22C3A6;
+    --cream:#14171C; --cream2:#101319; --sand:#232830;
+    --muted:#8A929E; --radius:16px;
+  }
+  html { scroll-behavior:smooth; }
+  body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; }
+
+  nav {
+    position:sticky; top:0; z-index:100; background:rgba(16,18,17,0.9);
+    backdrop-filter:blur(12px); box-shadow:0 1px 0 var(--sand);
+    padding:0 24px; height:64px; display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .nav-logo-name { font-family:'Outfit',sans-serif; font-size:17px; font-weight:800; color:var(--text); letter-spacing:-.02em; }
+  .nav-logo-name span { color:var(--orange); }
+  .nav-back { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--muted); text-decoration:none; transition:color .2s; }
+  .nav-back:hover { color:var(--orange); }
+  .nav-cta { background:var(--orange); color:#FFFFFF; font-family:'Outfit',sans-serif; font-size:13px; font-weight:700; padding:9px 20px; border-radius:100px; text-decoration:none; transition:background .2s; }
+  .nav-cta:hover { background:var(--orange2); }
+
+  .port-hero {
+    background:var(--bg); padding:72px 24px; text-align:center; position:relative; overflow:hidden;
+    background-image:radial-gradient(rgba(76,130,247,0.05) 1px, transparent 1px); background-size:22px 22px;
+  }
+  .port-hero::before { content:''; position:absolute; width:600px; height:600px; border-radius:50%; background:radial-gradient(circle, rgba(76,130,247,0.12) 0%, transparent 70%); top:-200px; left:50%; transform:translateX(-50%); pointer-events:none; }
+  .port-hero-tag { display:inline-flex; align-items:center; gap:8px; background:rgba(76,130,247,0.12); border:1px solid rgba(76,130,247,0.25); color:var(--orange); font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; padding:6px 14px; border-radius:100px; margin-bottom:24px; position:relative; }
+  .port-hero h1 { font-family:'Outfit',sans-serif; font-size:clamp(30px,5vw,48px); font-weight:900; color:var(--text); letter-spacing:-.03em; line-height:1.05; margin-bottom:16px; position:relative; }
+  .port-hero h1 em { font-style:normal; color:var(--orange); }
+  .port-hero p { font-size:15px; color:var(--muted); max-width:480px; margin:0 auto; line-height:1.7; position:relative; }
+
+  .filter-wrap { padding:40px 24px 0; max-width:1100px; margin:0 auto; display:flex; gap:8px; flex-wrap:wrap; }
+  .filter-btn { font-family:'Outfit',sans-serif; font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:9px 20px; border-radius:100px; border:2px solid var(--sand); background:var(--surface); color:var(--muted); cursor:pointer; transition:all .2s; }
+  .filter-btn.active, .filter-btn:hover { border-color:var(--orange); background:var(--orange); color:#FFFFFF; }
+
+  .wrapper { max-width:1100px; margin:0 auto; padding:32px 24px 80px; }
+  .port-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  @media(max-width:800px){ .port-grid { grid-template-columns:1fr 1fr; } }
+  @media(max-width:520px){ .port-grid { grid-template-columns:1fr; } }
+
+  .pf-card { background:var(--surface); border:1px solid var(--sand); border-radius:20px; overflow:hidden; box-shadow:0 2px 16px rgba(0,0,0,0.3); transition:box-shadow .25s; cursor:pointer; }
+  .pf-card:hover { box-shadow:0 16px 48px rgba(0,0,0,0.5); }
+  .pf-top { height:120px; display:flex; align-items:center; justify-content:center; border-bottom:1px solid var(--sand); color:var(--orange); }
+  .pf-top svg { width:40px; height:40px; }
+  .pf-top.tone-emerald { color:var(--emerald); }
+  .pf-info { padding:16px 18px; }
+  .pf-cat { font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--orange); margin-bottom:4px; }
+  .pf-title { font-family:'Outfit',sans-serif; font-size:15px; font-weight:800; color:var(--text); line-height:1.25; margin-bottom:8px; }
+  .pf-result { font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:8px; }
+  .pf-stack { font-family:'JetBrains Mono',monospace; font-size:11px; color:rgba(199,208,200,0.55); }
+
+  .g-orange { background:linear-gradient(135deg,#14171C,#111a2b); }
+  .g-blue   { background:linear-gradient(135deg,#14171C,#0f2420); }
+  .g-green  { background:linear-gradient(135deg,#14171C,#0f2420); }
+  .g-red    { background:linear-gradient(135deg,#14171C,#111a2b); }
+  .g-deep   { background:linear-gradient(135deg,#14171C,#0f2420); }
+  .g-fire   { background:linear-gradient(135deg,#14171C,#111a2b); }
+
+  .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:9999; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .3s; backdrop-filter:blur(4px); padding:16px; }
+  .modal-overlay.open { opacity:1; pointer-events:all; }
+  .modal { background:var(--surface); border:1px solid var(--sand); border-radius:24px; max-width:520px; width:100%; max-height:90vh; overflow-y:auto; position:relative; transform:scale(.95); transition:transform .3s; padding:36px 32px; }
+  .modal-overlay.open .modal { transform:scale(1); }
+  .modal-close { position:absolute; top:16px; right:16px; width:36px; height:36px; background:var(--surface2); border:none; border-radius:50%; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--muted); transition:background .2s; }
+  .modal-close:hover { background:var(--sand); }
+  .modal-tag { display:inline-block; background:var(--orange); color:#FFFFFF; font-size:10px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; padding:4px 12px; border-radius:100px; margin-bottom:16px; }
+  .modal-title { font-family:'Outfit',sans-serif; font-size:22px; font-weight:800; color:var(--text); line-height:1.2; margin-bottom:12px; }
+  .modal-desc { font-size:14px; color:var(--muted); line-height:1.75; margin-bottom:20px; }
+  .modal-specs { display:flex; flex-direction:column; gap:10px; margin-bottom:24px; }
+  .modal-spec { display:flex; gap:10px; font-size:13px; color:var(--text2); }
+  .modal-spec strong { color:var(--text); }
+  .modal-btn { display:block; background:var(--orange); color:#FFFFFF; font-family:'Outfit',sans-serif; font-size:14px; font-weight:700; padding:13px; border-radius:100px; text-align:center; text-decoration:none; transition:background .2s; }
+  .modal-btn:hover { background:var(--orange2); }
+
+  #wabtn { position:fixed; bottom:28px; right:28px; width:58px; height:58px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 24px rgba(37,211,102,0.4); z-index:9000; transition:transform .2s, box-shadow .2s; text-decoration:none; }
+  #wabtn:hover { transform:scale(1.08) translateY(-2px); box-shadow:0 10px 32px rgba(37,211,102,0.5); }
+  #wabtn::before { content:''; position:absolute; inset:-4px; border-radius:50%; border:2px solid rgba(37,211,102,0.3); animation:waping 2s ease-out infinite; }
+  @keyframes waping { 0%{transform:scale(1);opacity:.6} 100%{transform:scale(1.5);opacity:0} }
+
+  .reveal { opacity:0; transform:translateY(20px); transition:opacity .5s, transform .5s; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  .cta-section { background:var(--surface2); padding:60px 24px; text-align:center; }
+  .cta-section h2 { font-family:'Outfit',sans-serif; font-size:clamp(24px,4vw,36px); font-weight:900; color:var(--text); margin-bottom:12px; }
+  .cta-section h2 em { font-style:normal; color:var(--orange); }
+  .cta-section p { font-size:14px; color:var(--muted); margin-bottom:28px; max-width:420px; margin-left:auto; margin-right:auto; line-height:1.7; }
+  .cta-section a { background:var(--orange); color:#FFFFFF; font-family:'Outfit',sans-serif; font-size:14px; font-weight:700; padding:14px 32px; border-radius:100px; text-decoration:none; display:inline-block; transition:background .2s; }
+  .cta-section a:hover { background:var(--orange2); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity:1; transform:none; }
+    #wabtn::before { animation:none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="34" height="34" viewBox="0 0 100 100" fill="none" aria-hidden="true"><rect width="100" height="100" rx="20" fill="#4C82F7"/><path d="M50 20 L50 30 M35 35 L50 30 L65 35 M28 55 L50 30 L72 55" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M22 72 Q36 58 50 65 Q64 58 78 72" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" fill="none"/><circle cx="50" cy="26" r="5" fill="#FFFFFF"/></svg>
+    <div class="nav-logo-name">Ascend <span>Digital</span></div>
+  </a>
+  <a href="/" class="nav-back">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Voltar ao site
+  </a>
+  <a href="/briefing.html" class="nav-cta" data-magnetic="0.25">Começar projeto</a>
+</nav>
+
+<div class="port-hero">
+  <div class="port-hero-tag" data-parallax data-depth="14">✦ Casos</div>
+  <h1>Trabalho <em>real,</em><br>resultado real</h1>
+  <p>Exemplos de entregas de automação, dashboard e site. Clique em qualquer card para ver os detalhes.</p>
+</div>
+
+<div class="filter-wrap">
+  <button class="filter-btn active" data-filter="todos" aria-pressed="true">Todos</button>
+  <button class="filter-btn" data-filter="Automação" aria-pressed="false">Automação</button>
+  <button class="filter-btn" data-filter="Dashboard" aria-pressed="false">Dashboard</button>
+  <button class="filter-btn" data-filter="Site" aria-pressed="false">Site</button>
+</div>
+
+<div class="wrapper">
+  <div class="port-grid">
+
+    <div class="pf-card reveal" data-cat="Automação" data-modal="m1" data-tilt="6" tabindex="0" role="button" aria-haspopup="dialog">
+      <div class="pf-top g-orange" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><path d="M7 6h10M6.5 8l4.2 8M17.5 8l-4.2 8"/></svg></div>
+      <div class="pf-info">
+        <div class="pf-cat">Automação</div>
+        <div class="pf-title">Fluxo de propostas automático</div>
+        <div class="pf-result">Lead entra no formulário → cai no CRM → proposta gerada e enviada no WhatsApp em segundos.</div>
+        <div class="pf-stack">n8n · CRM · WhatsApp API</div>
+      </div>
+    </div>
+
+    <div class="pf-card reveal" data-cat="Dashboard" data-modal="m2" data-tilt="6" tabindex="0" role="button" aria-haspopup="dialog">
+      <div class="pf-top g-blue tone-emerald" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16h16"/><rect x="7" y="12" width="3" height="5"/><rect x="12.5" y="8" width="3" height="9"/><rect x="18" y="5" width="3" height="12"/></svg></div>
+      <div class="pf-info">
+        <div class="pf-cat">Dashboard</div>
+        <div class="pf-title">Painel de vendas em tempo real</div>
+        <div class="pf-result">Planilhas, gateway e CRM consolidados num só painel que atualiza sozinho.</div>
+        <div class="pf-stack">Supabase · API do gateway · gráficos</div>
+      </div>
+    </div>
+
+    <div class="pf-card reveal" data-cat="Automação" data-modal="m3" data-tilt="6" tabindex="0" role="button" aria-haspopup="dialog">
+      <div class="pf-top g-green" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M16 7h5v5"/><circle cx="9" cy="11" r="1.4"/><circle cx="13" cy="15" r="1.4"/></svg></div>
+      <div class="pf-info">
+        <div class="pf-cat">Automação</div>
+        <div class="pf-title">Onboarding de clientes sem e-mail manual</div>
+        <div class="pf-result">Contrato assinado dispara acessos, pasta, mensagem de boas-vindas e tarefa pro time.</div>
+        <div class="pf-stack">Make · assinatura digital · Slack</div>
+      </div>
+    </div>
+
+    <div class="pf-card reveal" data-cat="Site" data-modal="m4" data-tilt="6" tabindex="0" role="button" aria-haspopup="dialog">
+      <div class="pf-top g-fire tone-emerald" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><circle cx="6.5" cy="6.5" r="0.6"/><circle cx="9" cy="6.5" r="0.6"/></svg></div>
+      <div class="pf-info">
+        <div class="pf-cat">Site</div>
+        <div class="pf-title">Landing + captura + CRM</div>
+        <div class="pf-result">Site rápido, formulário que valida e joga o lead direto no funil, com rastreamento.</div>
+        <div class="pf-stack">Vite · Supabase · pixel/analytics</div>
+      </div>
+    </div>
+
+    <div class="pf-card reveal" data-cat="Automação" data-modal="m5" data-tilt="6" tabindex="0" role="button" aria-haspopup="dialog">
+      <div class="pf-top g-red" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M7.5 14h3M13.5 14h3M7.5 17.5h3"/></svg></div>
+      <div class="pf-info">
+        <div class="pf-cat">Automação</div>
+        <div class="pf-title">Relatório semanal que se monta sozinho</div>
+        <div class="pf-result">Toda segunda 8h, os números da semana chegam formatados no e-mail e no grupo.</div>
+        <div class="pf-stack">n8n · Google Sheets · e-mail</div>
+      </div>
+    </div>
+
+    <div class="pf-card reveal" data-cat="Automação" data-modal="m6" data-tilt="6" tabindex="0" role="button" aria-haspopup="dialog">
+      <div class="pf-top g-deep tone-emerald" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 12h6M9 15.5h6M9 19h4"/></svg></div>
+      <div class="pf-info">
+        <div class="pf-cat">Automação</div>
+        <div class="pf-title">Conciliação financeira</div>
+        <div class="pf-result">Cruza extrato, gateway e notas; separa o que bateu do que precisa de olho humano.</div>
+        <div class="pf-stack">Edge Function · planilhas</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal-overlay" id="m1"><div class="modal">
+  <button class="modal-close" data-close aria-label="Fechar">✕</button>
+  <div class="modal-tag">Automação</div>
+  <div class="modal-title">Fluxo de propostas automático</div>
+  <div class="modal-desc">O time perdia horas montando proposta e cobrando resposta. Agora o lead entra por um formulário, é qualificado, e uma proposta personalizada sai no WhatsApp em segundos — com follow-up automático se não responder.</div>
+  <div class="modal-specs">
+    <div class="modal-spec">⚙️ <span><strong>Stack:</strong> n8n · CRM · WhatsApp Cloud API</span></div>
+    <div class="modal-spec">⏱ <span><strong>Prazo típico:</strong> 1 a 2 semanas</span></div>
+    <div class="modal-spec">📈 <span><strong>Ganho:</strong> resposta ao lead de horas para segundos</span></div>
+  </div>
+  <a href="/briefing.html" class="modal-btn">Quero algo assim →</a>
+</div></div>
+
+<div class="modal-overlay" id="m2"><div class="modal">
+  <button class="modal-close" data-close aria-label="Fechar">✕</button>
+  <div class="modal-tag">Dashboard</div>
+  <div class="modal-title">Painel de vendas em tempo real</div>
+  <div class="modal-desc">Fim do fechamento manual de planilha. Vendas do gateway, pedidos do CRM e metas da planilha entram num painel único, com visão por período, comparação e filtro. Acesso por link, sem instalar nada.</div>
+  <div class="modal-specs">
+    <div class="modal-spec">📊 <span><strong>Stack:</strong> Supabase · API do gateway · biblioteca de gráficos</span></div>
+    <div class="modal-spec">⏱ <span><strong>Prazo típico:</strong> 2 a 3 semanas</span></div>
+    <div class="modal-spec">📈 <span><strong>Ganho:</strong> ~6h/semana de consolidação eliminadas</span></div>
+  </div>
+  <a href="/briefing.html" class="modal-btn">Quero meu painel →</a>
+</div></div>
+
+<div class="modal-overlay" id="m3"><div class="modal">
+  <button class="modal-close" data-close aria-label="Fechar">✕</button>
+  <div class="modal-tag">Automação</div>
+  <div class="modal-title">Onboarding de clientes sem e-mail manual</div>
+  <div class="modal-desc">Assinatura do contrato dispara toda a esteira: cria acessos, monta a pasta do cliente, envia a mensagem de boas-vindas e abre a tarefa pro time responsável. Ninguém mais esquece um passo.</div>
+  <div class="modal-specs">
+    <div class="modal-spec">🔗 <span><strong>Stack:</strong> Make · assinatura digital · Slack · Drive</span></div>
+    <div class="modal-spec">⏱ <span><strong>Prazo típico:</strong> 1 semana</span></div>
+    <div class="modal-spec">📈 <span><strong>Ganho:</strong> onboarding padronizado e sem falha humana</span></div>
+  </div>
+  <a href="/briefing.html" class="modal-btn">Quero automatizar →</a>
+</div></div>
+
+<div class="modal-overlay" id="m4"><div class="modal">
+  <button class="modal-close" data-close aria-label="Fechar">✕</button>
+  <div class="modal-tag">Site</div>
+  <div class="modal-title">Landing + captura + CRM</div>
+  <div class="modal-desc">Página rápida e responsiva, com formulário que valida de verdade e envia o lead direto pro funil — já com a origem e o rastreamento certos. Nada de lead perdido em caixa de e-mail.</div>
+  <div class="modal-specs">
+    <div class="modal-spec">🌐 <span><strong>Stack:</strong> Vite · Supabase · pixel/analytics</span></div>
+    <div class="modal-spec">⏱ <span><strong>Prazo típico:</strong> 2 a 4 semanas</span></div>
+    <div class="modal-spec">📈 <span><strong>Ganho:</strong> captura confiável e rastreável ponta a ponta</span></div>
+  </div>
+  <a href="/briefing.html" class="modal-btn">Quero um site assim →</a>
+</div></div>
+
+<div class="modal-overlay" id="m5"><div class="modal">
+  <button class="modal-close" data-close aria-label="Fechar">✕</button>
+  <div class="modal-tag">Automação</div>
+  <div class="modal-title">Relatório semanal que se monta sozinho</div>
+  <div class="modal-desc">Toda segunda às 8h, os números da semana anterior chegam formatados no e-mail e no grupo do WhatsApp: vendas, conversão, pendências. A reunião de segunda começa com todo mundo na mesma página.</div>
+  <div class="modal-specs">
+    <div class="modal-spec">📅 <span><strong>Stack:</strong> n8n · Google Sheets · e-mail · WhatsApp</span></div>
+    <div class="modal-spec">⏱ <span><strong>Prazo típico:</strong> alguns dias</span></div>
+    <div class="modal-spec">📈 <span><strong>Ganho:</strong> relatório sem ninguém montar na mão</span></div>
+  </div>
+  <a href="/briefing.html" class="modal-btn">Quero esse relatório →</a>
+</div></div>
+
+<div class="modal-overlay" id="m6"><div class="modal">
+  <button class="modal-close" data-close aria-label="Fechar">✕</button>
+  <div class="modal-tag">Automação</div>
+  <div class="modal-title">Conciliação financeira</div>
+  <div class="modal-desc">Cruza extrato bancário, repasses do gateway e notas emitidas. Marca automaticamente o que bateu e separa numa lista só o que precisa de conferência humana — o financeiro olha exceção, não tudo.</div>
+  <div class="modal-specs">
+    <div class="modal-spec">🧾 <span><strong>Stack:</strong> Edge Function/Python · planilhas · API do gateway</span></div>
+    <div class="modal-spec">⏱ <span><strong>Prazo típico:</strong> 1 a 2 semanas</span></div>
+    <div class="modal-spec">📈 <span><strong>Ganho:</strong> conferência 100% → só exceções</span></div>
+  </div>
+  <a href="/briefing.html" class="modal-btn">Quero conciliar assim →</a>
+</div></div>
+
+<div class="cta-section">
+  <h2>Quer resolver <em>a sua</em> versão disso?</h2>
+  <p>Preenche o briefing e eu retorno em até 2h com um diagnóstico e uma proposta de escopo.</p>
+  <a href="/briefing.html" data-magnetic="0.3">Começar projeto →</a>
+</div>
+
+<a id="wabtn" href="https://wa.me/5511954895398?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Ascend%20Digital%20e%20quero%20conversar%20sobre%20um%20projeto" target="_blank" rel="noopener" aria-label="Falar pelo WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 3C9.373 3 4 8.373 4 15c0 2.385.668 4.61 1.822 6.5L4 29l7.745-1.797A11.94 11.94 0 0016 27c6.627 0 12-5.373 12-12S22.627 3 16 3z" fill="white"/><path d="M21.5 18.5c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.68-1.63-.93-2.23-.24-.58-.49-.5-.68-.51-.17-.01-.37-.01-.57-.01s-.52.07-.79.37c-.27.3-1.03 1.01-1.03 2.46s1.06 2.85 1.2 3.05c.15.2 2.08 3.17 5.04 4.45.7.3 1.25.48 1.68.62.7.22 1.34.19 1.84.12.56-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.19-.57-.34z" fill="#25D366"/></svg>
+</a>
+
+<script src="/js/portfolio.js" defer></script>
+<script src="/js/pointer-fx.js" defer></script>
+</body>
+</html>

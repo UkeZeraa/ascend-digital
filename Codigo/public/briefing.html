@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Briefing — Ascend Digital</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/pointer-fx.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    /* Paleta "Grafite & Aço" */
+    --bg:#0B0D10; --surface:#14171C; --surface2:#1A1E25; --border:#232830;
+    --orange:#4C82F7; --orange2:#3B71E8; --amber:#E3B341;
+    --text:#E6E9EE; --muted:#8A929E; --radius:12px;
+  }
+
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh; position: relative; overflow-x: hidden;
+    background-image: radial-gradient(rgba(76,130,247,0.05) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  body::before, body::after {
+    content:''; position: fixed; border-radius:50%; pointer-events:none; z-index:0;
+    transition: transform .3s ease-out;
+  }
+  body::before { top:-200px; right:-200px; width:600px; height:600px; background: radial-gradient(circle, rgba(76,130,247,0.10) 0%, transparent 70%); }
+  body::after  { bottom:-200px; left:-100px; width:500px; height:500px; background: radial-gradient(circle, rgba(34,195,166,0.06) 0%, transparent 70%); }
+
+  .topbar { padding:16px 24px; display:flex; align-items:center; justify-content:space-between; position:relative; z-index:1; }
+  .back-link, .brand { display:inline-flex; align-items:center; gap:8px; text-decoration:none; }
+  .back-link { font-family:'Syne',sans-serif; font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); transition:color .2s; }
+  .back-link:hover { color: var(--orange); }
+  .brand span { font-family:'Syne',sans-serif; font-size:15px; font-weight:800; color:var(--text); letter-spacing:-.02em; }
+
+  .wrapper { max-width:700px; margin:0 auto; padding:48px 24px 100px; position:relative; z-index:1; }
+
+  .header { margin-bottom:48px; }
+  .badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(76,130,247,0.10); border:1px solid rgba(76,130,247,0.25); color:var(--orange);
+    font-family:'Syne',sans-serif; font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase;
+    padding:6px 14px; border-radius:100px; margin-bottom:24px;
+  }
+  .badge::before { content:''; width:6px; height:6px; background:var(--orange); border-radius:50%; }
+  h1 { font-family:'Syne',sans-serif; font-size:clamp(30px,6vw,48px); font-weight:800; line-height:1.05; letter-spacing:-.02em; margin-bottom:16px; }
+  h1 em { font-style:normal; color:var(--orange); }
+  .subtitle { font-size:15px; color:var(--muted); line-height:1.7; max-width:480px; font-weight:300; }
+
+  .progress-wrap { margin-bottom:44px; }
+  .progress-label { display:flex; justify-content:space-between; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); margin-bottom:10px; }
+  .progress-bar { height:3px; background:var(--border); border-radius:100px; overflow:hidden; }
+  .progress-fill { height:100%; background:linear-gradient(90deg,var(--orange),var(--amber)); border-radius:100px; width:0%; transition:width .4s cubic-bezier(.4,0,.2,1); }
+
+  .section { margin-bottom:44px; animation:fadeUp .5s ease both; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .section:nth-child(3){animation-delay:.05s} .section:nth-child(4){animation-delay:.1s} .section:nth-child(5){animation-delay:.15s}
+  .section-title { font-family:'Syne',sans-serif; font-size:11px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--orange); margin-bottom:22px; display:flex; align-items:center; gap:12px; }
+  .section-title::after { content:''; flex:1; height:1px; background:var(--border); }
+
+  .field { margin-bottom:20px; }
+  label { display:block; font-size:13px; font-weight:500; color:var(--text); margin-bottom:8px; }
+  label span.req { color:var(--orange); margin-left:2px; }
+  label .hint { display:block; font-size:11px; color:var(--muted); font-weight:300; margin-top:2px; font-style:italic; }
+
+  input[type=text], input[type=tel], input[type=email], select, textarea {
+    width:100%; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    color:var(--text); font-family:'DM Sans',sans-serif; font-size:14px; padding:14px 16px; outline:none;
+    transition:border-color .2s, background .2s, box-shadow .2s; -webkit-appearance:none;
+  }
+  input:focus, select:focus, textarea:focus { border-color:var(--orange); background:var(--surface2); box-shadow:0 0 0 3px rgba(76,130,247,0.15); }
+  textarea { resize:vertical; min-height:90px; line-height:1.6; }
+  select {
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 14px center; padding-right:40px; cursor:pointer;
+  }
+  option { background:#101319; }
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media(max-width:480px){ .grid-2 { grid-template-columns:1fr; } }
+
+  .hp-field { position:absolute!important; left:-9999px!important; width:1px; height:1px; overflow:hidden; }
+
+  .form-error {
+    display:none; background:rgba(255,107,107,0.10); border:1px solid rgba(255,107,107,0.35);
+    color:#FFB4B4; font-size:13px; line-height:1.5; border-radius:var(--radius); padding:12px 16px; margin-bottom:20px;
+  }
+
+  .submit-wrap { text-align:center; padding-top:8px; }
+  .btn-submit {
+    display:inline-flex; align-items:center; gap:12px; background:var(--orange); color:#FFFFFF;
+    font-family:'Syne',sans-serif; font-size:15px; font-weight:700; letter-spacing:.03em;
+    border:none; border-radius:100px; padding:18px 40px; cursor:pointer;
+    transition:transform .15s, box-shadow .15s, background .2s; box-shadow:0 8px 32px rgba(76,130,247,0.32);
+  }
+  .btn-submit:hover { transform:translateY(-2px); box-shadow:0 12px 40px rgba(76,130,247,0.45); background:var(--orange2); }
+  .btn-submit[disabled] { opacity:.6; cursor:progress; }
+  .submit-note { margin-top:14px; font-size:12px; color:var(--muted); font-style:italic; }
+
+  .success-screen { display:none; text-align:center; padding:70px 0; }
+  .success-screen.show { display:block; }
+  .success-icon { font-size:56px; margin-bottom:24px; display:block; animation:pop .5s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes pop { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+  .success-screen h2 { font-family:'Syne',sans-serif; font-size:26px; font-weight:800; margin-bottom:12px; }
+  .success-screen p { color:var(--muted); font-size:15px; line-height:1.7; max-width:380px; margin:0 auto; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .section, .success-icon { animation:none!important; }
+    .progress-fill, body::before, body::after { transition:none!important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar" data-parallax data-depth="0">
+  <a href="/" class="back-link" data-magnetic="0.25">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Voltar ao site
+  </a>
+  <a href="/" class="brand">
+    <svg width="28" height="28" viewBox="0 0 100 100" fill="none" aria-hidden="true"><rect width="100" height="100" rx="20" fill="#4C82F7"/><path d="M50 20 L50 30 M35 35 L50 30 L65 35 M28 55 L50 30 L72 55" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M22 72 Q36 58 50 65 Q64 58 78 72" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" fill="none"/><circle cx="50" cy="26" r="5" fill="#FFFFFF"/></svg>
+    <span>Ascend <span style="color:#4C82F7">Digital</span></span>
+  </a>
+</div>
+
+<div class="wrapper">
+
+  <div class="header">
+    <div class="badge">Briefing do projeto</div>
+    <h1>Conta o que<br>está te <em>travando</em></h1>
+    <p class="subtitle">Preencha abaixo para eu entender seu processo e retornar em até 2 horas pelo WhatsApp com um diagnóstico e uma proposta de escopo.</p>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label"><span>PROGRESSO</span><span id="pct">0%</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <form id="briefingForm" novalidate>
+
+    <div id="formError" class="form-error" role="alert" aria-live="assertive"></div>
+
+    <div class="hp-field" aria-hidden="true">
+      <label>Não preencha este campo
+        <input type="text" name="company_website" tabindex="-1" autocomplete="off">
+      </label>
+    </div>
+
+    <div class="section">
+      <div class="section-title">01 — Sobre você</div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Seu nome <span class="req">*</span></label>
+          <input type="text" name="name" placeholder="Ex: Ana Lima" required>
+        </div>
+        <div class="field">
+          <label>WhatsApp <span class="req">*</span></label>
+          <input type="tel" name="whatsapp" placeholder="(11) 99999-9999" required>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label>E-mail <span class="req">*</span></label>
+          <input type="email" name="email" placeholder="seuemail@empresa.com" required>
+        </div>
+        <div class="field">
+          <label>Empresa / negócio <span class="req">*</span></label>
+          <input type="text" name="business_name" placeholder="Ex: Loja da Bela" required>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">02 — O projeto</div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Tipo de projeto <span class="req">*</span></label>
+          <select name="project_type" required>
+            <option value="" disabled selected>Selecione...</option>
+            <option>Automação de processo</option>
+            <option>Dashboard de KPIs</option>
+            <option>Site institucional / landing page</option>
+            <option>Site + Automação</option>
+            <option>Integração entre sistemas</option>
+            <option>Ainda não sei</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Prazo</label>
+          <select name="deadline">
+            <option value="" disabled selected>Quando precisa?</option>
+            <option>Pra ontem</option>
+            <option>2 a 4 semanas</option>
+            <option>1 a 2 meses</option>
+            <option>Sem pressa</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>O que precisa ser resolvido? <span class="req">*</span>
+          <span class="hint">Descreva o processo manual que trava o time, ou o que o site/dashboard precisa fazer</span>
+        </label>
+        <textarea name="description" placeholder="Ex: toda venda a gente lança na planilha à mão, confere no gateway e avisa o financeiro no grupo..." required></textarea>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">03 — Contexto</div>
+      <div class="field">
+        <label>Ferramentas que você já usa
+          <span class="hint">CRM, planilhas, ERP, gateway, ferramentas de automação...</span>
+        </label>
+        <input type="text" name="current_tools" placeholder="Ex: Google Sheets, Pipedrive, Bling, WhatsApp">
+      </div>
+      <div class="field">
+        <label>Números que você quer acompanhar
+          <span class="hint">Quais indicadores precisam ficar na sua frente</span>
+        </label>
+        <input type="text" name="kpis" placeholder="Ex: vendas/dia, ticket médio, taxa de conversão, tempo de resposta">
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">04 — Orçamento</div>
+      <div class="field">
+        <label>Plano de interesse
+          <span class="hint">Só pra eu ter uma referência — a proposta é sob medida</span>
+        </label>
+        <select name="plan">
+          <option value="" disabled selected>Qual plano faz sentido?</option>
+          <option>Automação — a partir de R$ 900</option>
+          <option>Dashboard de KPIs — a partir de R$ 1.200</option>
+          <option>Operação completa — sob consulta</option>
+          <option>Ainda não sei</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="submit-wrap">
+      <button type="submit" class="btn-submit" data-magnetic="0.3">
+        Enviar briefing
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <p class="submit-note">Retorno em até 2 horas no WhatsApp ✦ Sem compromisso</p>
+    </div>
+  </form>
+
+  <div class="success-screen" id="successScreen">
+    <span class="success-icon">🎯</span>
+    <h2>Briefing recebido!</h2>
+    <p>Obrigado! Vou analisar e te chamar no WhatsApp em até <strong style="color:var(--orange)">2 horas</strong> com um diagnóstico rápido e uma proposta de escopo.</p>
+    <a href="https://wa.me/5511954895398?text=Ol%C3%A1!%20Acabei%20de%20enviar%20o%20briefing%20no%20site%20da%20Ascend%20Digital"
+       target="_blank" rel="noopener"
+       style="display:inline-flex;align-items:center;gap:10px;margin-top:28px;background:#25D366;color:#fff;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;padding:14px 28px;border-radius:100px;text-decoration:none;">
+      <svg width="20" height="20" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 3C9.373 3 4 8.373 4 15c0 2.385.668 4.61 1.822 6.5L4 29l7.745-1.797A11.94 11.94 0 0016 27c6.627 0 12-5.373 12-12S22.627 3 16 3z" fill="white"/><path d="M21.5 18.5c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.68-1.63-.93-2.23-.24-.58-.49-.5-.68-.51-.17-.01-.37-.01-.57-.01s-.52.07-.79.37c-.27.3-1.03 1.01-1.03 2.46s1.06 2.85 1.2 3.05c.15.2 2.08 3.17 5.04 4.45.7.3 1.25.48 1.68.62.7.22 1.34.19 1.84.12.56-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.19-.57-.34z" fill="#25D366"/></svg>
+      Falar no WhatsApp
+    </a>
+  </div>
+</div>
+
+<script src="/js/briefing.js" defer></script>
+<script src="/js/pointer-fx.js" defer></script>
+</body>
+</html>
