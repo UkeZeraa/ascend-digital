@@ -7,6 +7,32 @@ Plano da última reorganização: `plano-reorganizacao.md` (nesta pasta).
 
 ---
 
+## 2026-09-12 — Depoimentos de empresas fictícias (sem foto), sem aspas decorativas, preço + mensalidade
+
+Pedido do dono: (1) tirar a aspa decorativa gigante do card de depoimento; (2) as "fotos"
+dos depoimentos devem parecer de **empresas fictícias**, não de pessoas — reforça que quem
+contrata são negócios; (3) em Planos, manter o valor do projeto e **somar um custo mensal**
+de hospedagem/manutenção que varia por plano.
+
+### Depoimentos
+| Arquivo | Ação | Motivo |
+|---|---|---|
+| `src/components/Testimonials.tsx` | alterado | Removida a aspa decorativa (`&ldquo;` 80px) do card. `FALLBACK`: nomes de pessoa → **empresas fictícias** (NordFlux Comércio, Clínica Vitalis, Agência Prisma, Casa Lumen, Grupo Meridian), `avatar_url: null` em todas. Removidos os 5 imports de foto (`@/assets/*.jpg`). Quando não há `avatar_url`, o card mostra um **monograma estilo logo** (tile `rounded-[12px]`, não círculo) com cor azul/teal derivada do nome (`toneFor`) em vez do círculo de iniciais antigo — nunca mais uma foto de rosto. |
+| `src/components/Testimonials.test.tsx` | alterado | Asserção do fallback `Lucas Mendes` → `NordFlux Comércio`. |
+| `src/assets/{barbearia,mulher,maquiadora,loja,homem}.jpg` | removido | Só eram usados pelo `FALLBACK`; sem `avatar_url` não há mais foto nenhuma no componente. |
+| `public/testimonials/*.jpg` (5 arquivos) | removido | Eram servidos pelos `avatar_url` das 5 linhas seed no Supabase; a migration abaixo zera esses `avatar_url`, então ficaram órfãos. |
+| Supabase `public.testimonials` (migration `testimonials_fictitious_companies`, via `apply_migration`) | alterado (dados) | `UPDATE` nas 5 linhas seed: mesmos nomes fictícios acima, `avatar_url = NULL`. Sem mudança de schema. |
+
+### Planos — preço do projeto + mensalidade separada
+| Arquivo | Ação | Motivo |
+|---|---|---|
+| `src/components/Pricing.tsx` | alterado | `Plan` ganha o campo `monthly` (custo recorrente, renderizado logo abaixo do preço do projeto). Automação `R$ 900` → `+ R$ 129,90/mês` de hospedagem/manutenção; Dashboard de KPIs `R$ 1.200` → `+ R$ 159,90/mês`; Operação completa (`Sob consulta`) → mensalidade também "sob consulta" (cobre também sites sob medida — não virou plano à parte). Parágrafo de intro reescrito: não diz mais "sem mensalidade obrigatória" (agora existe uma, separada do valor do projeto) — "paga o projeto uma vez; manutenção mensal à parte, sem fidelidade". |
+
+Verificação: `npm run typecheck` limpo · `npm run lint` só os 3 erros pré-existentes ·
+`npm run build` limpo (bundle de imagens dos depoimentos sumiu do `dist/assets`) · `npm test` 16/16.
+
+---
+
 ## 2026-09-10 — Reorganização de pastas (Codigo/ + Documentos/) + deploy Vercel + paleta "Grafite & Aço"
 
 Dono vai hospedar na **Vercel** hoje e pediu um **repositório Git novo e limpo**, com o
@@ -62,6 +88,19 @@ do `--primary` voltam a ter **foreground branco** (texto branco sobre o azul).
 
 Verificação: rodar de `Codigo/` — `npm install` → `npm run typecheck` limpo → `npm run lint`
 sem erros novos → `npm run build` gera `dist/` → `npm test` 16/16. `vercel.json` = JSON válido.
+
+### Pós-deploy Vercel (mesmo dia)
+Site no ar em `https://ascend-digital-kohl.vercel.app`. Ajustes:
+
+| Arquivo | Ação | Motivo |
+|---|---|---|
+| `Codigo/vite.config.ts` | alterado | `PROD_CSP` (o `<meta>` de fallback) perde `frame-ancestors 'none'` — o browser ignora essa diretiva em `<meta>` e gerava warning no console. A diretiva continua no header real (`vercel.json` + `nginx.security-headers.conf`). |
+
+Pendência do dono (não é código): as edge functions barram o POST do formulário por CORS —
+o secret **`ALLOWED_ORIGINS`** do Supabase (projeto `fjxwyqtxtszasxrqqfpd` ▸ Edge Functions ▸
+Secrets) precisa incluir `https://ascend-digital-kohl.vercel.app` (e depois o domínio
+próprio). `_shared/cors.ts` lê o secret em runtime; se não pegar na hora, redeploy de
+`submit-briefing` + `submit-testimonial`.
 
 ---
 

@@ -6,8 +6,10 @@ const SUPABASE_ORIGIN = "https://fjxwyqtxtszasxrqqfpd.supabase.co";
 const SUPABASE_WS = "wss://fjxwyqtxtszasxrqqfpd.supabase.co";
 
 // CSP como <meta> só no build de produção (fallback caso o servidor não
-// aplique o header — o header canônico está no nginx.conf). Não é injetado
-// em dev para não quebrar o HMR.
+// aplique o header — o header canônico está em vercel.json / nginx.security-headers.conf).
+// Não é injetado em dev para não quebrar o HMR.
+// `frame-ancestors` é omitido de propósito: o browser ignora essa diretiva quando
+// vem de <meta> (só vale como header HTTP, e lá ela está).
 const PROD_CSP = [
   "default-src 'self'",
   "script-src 'self'",
@@ -15,7 +17,6 @@ const PROD_CSP = [
   "font-src 'self' https://fonts.gstatic.com",
   "img-src 'self' data: https:",
   `connect-src 'self' ${SUPABASE_ORIGIN} ${SUPABASE_WS}`,
-  "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",
   "object-src 'none'",

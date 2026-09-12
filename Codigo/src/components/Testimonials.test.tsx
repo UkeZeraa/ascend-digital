@@ -26,7 +26,7 @@ describe("Testimonials", () => {
   it("renderiza o fallback quando a busca falha", async () => {
     renderWithClient(<Testimonials />);
     await waitFor(() => {
-      expect(screen.getByText(/Lucas Mendes/)).toBeInTheDocument();
+      expect(screen.getByText(/NordFlux Comércio/)).toBeInTheDocument();
     });
     expect(screen.getByText(/O que os clientes/)).toBeInTheDocument();
     expect(screen.getByRole("radiogroup", { name: /sua nota/i })).toBeInTheDocument();

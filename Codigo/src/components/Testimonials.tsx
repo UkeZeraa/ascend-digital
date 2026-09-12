@@ -4,11 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { validateTestimonial } from "@/lib/validators";
 import { useToast } from "@/hooks/use-toast";
-import pessoa1 from "@/assets/barbearia.jpg";
-import pessoa2 from "@/assets/mulher.jpg";
-import pessoa3 from "@/assets/maquiadora.jpg";
-import pessoa4 from "@/assets/loja.jpg";
-import pessoa5 from "@/assets/homem.jpg";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string | undefined;
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined;
@@ -24,21 +19,30 @@ type Testimonial = {
 };
 
 // Fallback usado só se a query falhar ou vier vazia (mesmo conteúdo do seed).
+// Empresas fictícias — deixa claro que quem contrata são negócios, não pessoas físicas.
+// Sem avatar_url de propósito: o cartão sempre mostra um monograma, nunca uma foto.
 const FALLBACK: Testimonial[] = [
-  { id: "f1", name: "Lucas Mendes", role: "E-commerce · Rio de Janeiro", rating: 5, avatar_url: pessoa1,
-    text: "A conferência de pedidos que tomava a manhã inteira do meu time virou uma automação. Hoje ninguém toca nisso — só olha o painel." },
-  { id: "f2", name: "Camila Oliveira", role: "Clínica · Belo Horizonte", rating: 5, avatar_url: pessoa2,
-    text: "O dashboard mudou minha reunião de segunda. Antes eu chutava os números, agora eu abro o link e sei exatamente onde estou." },
-  { id: "f3", name: "Juliana Ramos", role: "Agência · São Paulo", rating: 5, avatar_url: pessoa3,
+  { id: "f1", name: "NordFlux Comércio", role: "E-commerce · Rio de Janeiro", rating: 5, avatar_url: null,
+    text: "A conferência de pedidos que tomava a manhã inteira do nosso time virou uma automação. Hoje ninguém toca nisso — só olha o painel." },
+  { id: "f2", name: "Clínica Vitalis", role: "Clínica · Belo Horizonte", rating: 5, avatar_url: null,
+    text: "O dashboard mudou nossa reunião de segunda. Antes a gente chutava os números, agora abre o link e sabe exatamente onde está." },
+  { id: "f3", name: "Agência Prisma", role: "Agência · São Paulo", rating: 5, avatar_url: null,
     text: "Onboarding de cliente novo era e-mail atrás de e-mail. Automatizamos tudo: contrato assinado e o cliente já entra com acesso e pasta pronta." },
-  { id: "f4", name: "Fernanda Costa", role: "Varejo · Curitiba", rating: 5, avatar_url: pessoa4,
+  { id: "f4", name: "Casa Lumen", role: "Varejo · Curitiba", rating: 5, avatar_url: null,
     text: "Fizeram o site e ligaram no CRM. O lead preenche e cai no funil com a origem certinha — nada mais se perde." },
-  { id: "f5", name: "Rafael Souza", role: "Serviços · Salvador", rating: 5, avatar_url: pessoa5,
+  { id: "f5", name: "Grupo Meridian", role: "Serviços · Salvador", rating: 5, avatar_url: null,
     text: "O relatório semanal se monta sozinho e chega no grupo toda segunda 8h. Economia de umas 6 horas por mês, fácil." },
 ];
 
 function initials(name: string) {
   return name.trim().split(/\s+/).slice(0, 2).map((p) => p[0]?.toUpperCase() ?? "").join("");
+}
+
+// Cor do monograma derivada do nome — estável entre renders, sem depender de índice.
+function toneFor(name: string): "blue" | "teal" {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) >>> 0;
+  return h % 2 === 0 ? "blue" : "teal";
 }
 
 function prefersReducedMotion() {
@@ -229,10 +233,6 @@ const Testimonials = () => {
               aria-label={`Depoimento ${active + 1} de ${count}`}
               className="tt-card-anim relative mx-auto max-w-[720px] min-h-[300px] sm:min-h-[280px] rounded-[24px] border border-sand bg-surface p-7 sm:p-12 flex flex-col justify-center"
             >
-              <div className="absolute top-6 left-8 font-display text-[80px] leading-none text-orange/15 select-none" aria-hidden="true">
-                &ldquo;
-              </div>
-
               <div className="text-amber text-sm tracking-[3px] mb-5 relative" aria-label={`Nota ${current.rating} de 5`}>
                 {"★".repeat(current.rating)}
                 <span className="opacity-25">{"★".repeat(5 - current.rating)}</span>
@@ -248,12 +248,16 @@ const Testimonials = () => {
                     src={current.avatar_url}
                     alt=""
                     loading="lazy"
-                    className="w-12 h-12 rounded-full object-cover shrink-0 ring-1 ring-sand"
+                    className="w-12 h-12 rounded-[12px] object-cover shrink-0 ring-1 ring-sand"
                   />
                 ) : (
+                  // Sem foto de propósito: um monograma no estilo "logo de empresa",
+                  // não um retrato — o depoimento vem de um negócio, não de uma pessoa.
                   <span
                     aria-hidden="true"
-                    className="w-12 h-12 rounded-full shrink-0 flex items-center justify-center text-sm font-bold bg-orange-dim text-orange"
+                    className={`w-12 h-12 rounded-[12px] shrink-0 flex items-center justify-center text-sm font-black tracking-wide ${
+                      toneFor(current.name) === "blue" ? "bg-orange-dim text-orange" : "bg-[rgba(34,195,166,0.12)] text-emerald"
+                    }`}
                   >
                     {initials(current.name)}
                   </span>

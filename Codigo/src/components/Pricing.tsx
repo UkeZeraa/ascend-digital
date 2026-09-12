@@ -1,11 +1,13 @@
 import { Magnetic, TiltCard } from "@/components/motion";
 
 // Preços "a partir de" — placeholders. Ajuste livremente.
+// `monthly`: custo recorrente (hospedagem/manutenção), separado do valor do projeto.
 type Plan = {
   name: string;
   tagline: string;
   price: string;
   priceNote: string;
+  monthly: string;
   featured: boolean;
   popular?: boolean;
   features: { text: string; included: boolean; bold?: boolean }[];
@@ -19,6 +21,7 @@ const plans: Plan[] = [
     tagline: "Pra tirar um processo repetitivo das costas do seu time",
     price: "R$ 900",
     priceNote: "a partir de",
+    monthly: "+ R$ 129,90/mês de hospedagem e manutenção",
     featured: false,
     features: [
       { text: "1 processo automatizado ponta a ponta", included: true, bold: true },
@@ -37,6 +40,7 @@ const plans: Plan[] = [
     tagline: "Pra parar de fechar planilha na mão toda semana",
     price: "R$ 1.200",
     priceNote: "a partir de",
+    monthly: "+ R$ 159,90/mês de hospedagem e manutenção",
     featured: true,
     popular: true,
     features: [
@@ -52,12 +56,13 @@ const plans: Plan[] = [
   },
   {
     name: "Operação completa",
-    tagline: "Site + captura + automações + painel, com acompanhamento",
+    tagline: "Site sob medida + automações + painel, com acompanhamento",
     price: "Sob consulta",
     priceNote: "projeto",
+    monthly: "Hospedagem e manutenção também sob consulta",
     featured: false,
     features: [
-      { text: "Site institucional / landing com captura de leads", included: true, bold: true },
+      { text: "Site institucional / landing (ou site sob medida) com captura de leads", included: true, bold: true },
       { text: "Automações do lead ao fechamento", included: true, bold: true },
       { text: "Dashboard de KPIs do funil e da operação", included: true, bold: true },
       { text: "Integrações sob medida", included: true },
@@ -81,7 +86,8 @@ const Pricing = () => {
             Escopo fechado, <em className="not-italic text-orange">preço combinado</em>
           </h2>
           <p className="text-[15px] text-muted-custom max-w-[520px] leading-[1.7] mx-auto">
-            Sem mensalidade obrigatória e sem contrato de fidelidade. Você fecha o projeto e recebe funcionando.
+            Você paga o projeto uma vez e recebe funcionando. A manutenção mensal (hospedagem,
+            monitoramento e suporte) é à parte, sem contrato de fidelidade — cancele quando quiser.
           </p>
         </div>
 
@@ -110,6 +116,7 @@ const Pricing = () => {
                 <div className={`font-mono text-4xl font-bold leading-none tracking-[-0.03em] mt-1 ${plan.featured ? "text-orange" : "text-ink"}`}>
                   {plan.price}
                 </div>
+                <div className="text-[12px] text-muted-custom mt-2 leading-snug">{plan.monthly}</div>
               </div>
 
               <div className="h-px bg-sand my-5" />
