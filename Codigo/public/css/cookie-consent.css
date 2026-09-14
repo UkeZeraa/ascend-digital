@@ -1,0 +1,70 @@
+/* Aviso discreto de privacidade/LGPD para as páginas estáticas (public/js/cookie-consent.js
+   cria o markup em runtime). Cores em hex literal — sem depender do :root de cada página,
+   igual ao padrão do pointer-fx.css. */
+
+.privacy-bar {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 9998;
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  background: #14171c;
+  border: 1px solid #232830;
+  border-radius: 14px;
+  padding: 14px 18px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #e6e9ee;
+  animation: privacy-in 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.privacy-bar p {
+  margin: 0;
+  flex: 1 1 240px;
+}
+.privacy-bar a {
+  color: #4c82f7;
+  text-decoration: underline;
+}
+.privacy-bar button {
+  flex-shrink: 0;
+  background: #4c82f7;
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  font-family: "Syne", "DM Sans", sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 9px 18px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.privacy-bar button:hover {
+  background: #3b71e8;
+}
+.privacy-bar-hide {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+@keyframes privacy-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .privacy-bar { animation: none; }
+  .privacy-bar-hide { transition: none; }
+}
+
+@media (max-width: 480px) {
+  .privacy-bar { left: 10px; right: 10px; bottom: 10px; padding: 12px 14px; }
+}

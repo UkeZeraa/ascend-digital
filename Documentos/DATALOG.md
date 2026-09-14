@@ -7,6 +7,39 @@ Plano da última reorganização: `plano-reorganizacao.md` (nesta pasta).
 
 ---
 
+## 2026-09-14 — Varredura de segurança do banco + aviso de privacidade (LGPD)
+
+Pedido do dono: "segurança de ponta a ponta de SSH pra proteger os bancos" (não existe SSH
+no deploy atual — Vercel é serverless e o Postgres é gerenciado pelo Supabase, já com
+TLS obrigatório; o que dava pra reforçar de verdade era a postura do banco) + "esconder os
+cookies do site" (o site não usa nenhum cookie — a decisão virou um aviso de privacidade/LGPD).
+
+### Segurança do banco (Supabase `get_advisors`)
+Rodada a varredura de segurança. 3 alertas encontrados — **todos em funções de um app
+diferente** (`handle_new_user`, `rls_auto_enable`, `update_updated_at`, usadas pelas tabelas
+`profiles`/`couples` que já existiam neste projeto Supabase antes do Ascend Digital). Dono
+confirmou pra **não mexer** nelas. Nenhuma alteração de schema/permissão nesta rodada.
+Achado à parte, do projeto inteiro (compartilhado entre os dois apps): **"Leaked Password
+Protection" está desligada** no Supabase Auth — só dá pra ligar pelo painel (Authentication ▸
+Sign In / Providers ▸ Password), sem tool de MCP pra isso; fica registrado como pendência
+do dono.
+
+### Aviso de privacidade (LGPD) — o site não usa cookies, mas coleta dados no formulário
+| Arquivo | Ação | Motivo |
+|---|---|---|
+| `src/components/CookieConsent.tsx` | novo | Barra discreta e fechável (`position: fixed`, canto inferior), aparece uma vez (chave `ascend-privacy-notice` no `localStorage`) explicando que não há cookies de rastreamento e linkando pra política de privacidade. Nunca é modal/bloqueante. |
+| `src/App.tsx` | alterado | `<CookieConsent />` montado ao lado do `<PointerFX />`/`<Toaster />` — aparece em `/` e `/admin`. |
+| `src/components/Footer.tsx` | alterado | Novo link "Privacidade" → `/privacidade.html`. |
+| `public/privacidade.html` | novo | Página de Política de Privacidade (mesmo template visual de `briefing.html`): quais dados são coletados (briefing + depoimento), pra que servem, onde ficam (Supabase + RLS), cookies/localStorage (nenhum de rastreamento), direitos do titular (LGPD art. 18), contato via WhatsApp. |
+| `public/js/cookie-consent.js` | novo | Versão vanilla do aviso pra `briefing.html`/`portfolio.html` — mesma chave de `localStorage` do componente React, então dispensar num lugar dispensa nos dois. |
+| `public/css/cookie-consent.css` | novo | Estilo da barra nas páginas estáticas (hex literal, não depende do `:root` de cada página — mesmo padrão do `pointer-fx.css`). |
+| `public/briefing.html`, `public/portfolio.html` | alterado | Incluem o novo CSS/JS do aviso. |
+
+Verificação: `npm run typecheck` limpo · `npm run lint` só os 3 erros pré-existentes ·
+`npm run build` limpo (`privacidade.html` presente em `dist/`) · `npm test` 16/16.
+
+---
+
 ## 2026-09-13 — Efeito de hover no wordmark da Navbar (imã + luz)
 
 Pedido do dono: quando passa o mouse sobre "Ascend Digital" na navbar, o texto levanta um

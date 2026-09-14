@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import PointerFX from "@/components/PointerFX";
+import CookieConsent from "@/components/CookieConsent";
 import Index from "./pages/Index.tsx";
 import Admin from "./pages/Admin.tsx";
 import NotFound from "./pages/NotFound.tsx";
@@ -16,6 +17,7 @@ const App = () => (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <PointerFX />
+        <CookieConsent />
         <Toaster />
         <Sonner />
         <BrowserRouter>

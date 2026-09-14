@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidade — Ascend Digital</title>
+<meta name="description" content="Como a Ascend Digital coleta, usa e protege os dados enviados pelo site, em conformidade com a LGPD.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/pointer-fx.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    /* Paleta "Grafite & Aço" */
+    --bg:#0B0D10; --surface:#14171C; --surface2:#1A1E25; --border:#232830;
+    --orange:#4C82F7; --orange2:#3B71E8; --amber:#E3B341;
+    --text:#E6E9EE; --muted:#8A929E; --radius:12px;
+  }
+
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh; position: relative; overflow-x: hidden;
+    background-image: radial-gradient(rgba(76,130,247,0.05) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  .topbar { padding:16px 24px; display:flex; align-items:center; justify-content:space-between; }
+  .back-link, .brand { display:inline-flex; align-items:center; gap:8px; text-decoration:none; }
+  .back-link { font-family:'Syne',sans-serif; font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); transition:color .2s; }
+  .back-link:hover { color: var(--orange); }
+  .brand span { font-family:'Syne',sans-serif; font-size:15px; font-weight:800; color:var(--text); letter-spacing:-.02em; }
+
+  .wrapper { max-width:720px; margin:0 auto; padding:16px 24px 100px; }
+
+  .header { margin-bottom:40px; }
+  .badge {
+    display:inline-flex; align-items:center; gap:8px;
+    background:rgba(76,130,247,0.10); border:1px solid rgba(76,130,247,0.25); color:var(--orange);
+    font-family:'Syne',sans-serif; font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase;
+    padding:6px 14px; border-radius:100px; margin-bottom:24px;
+  }
+  .badge::before { content:''; width:6px; height:6px; background:var(--orange); border-radius:50%; }
+  h1 { font-family:'Syne',sans-serif; font-size:clamp(28px,5vw,40px); font-weight:800; line-height:1.1; letter-spacing:-.02em; margin-bottom:16px; }
+  .subtitle { font-size:15px; color:var(--muted); line-height:1.7; max-width:520px; font-weight:300; }
+  .updated { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); margin-top:16px; }
+
+  .policy h2 {
+    font-family:'Syne',sans-serif; font-size:15px; font-weight:700; letter-spacing:.02em;
+    color:var(--text); margin:40px 0 14px; padding-bottom:10px; border-bottom:1px solid var(--border);
+  }
+  .policy p, .policy li { font-size:14px; line-height:1.8; color:var(--muted); }
+  .policy p { margin-bottom:14px; }
+  .policy strong { color:var(--text); font-weight:600; }
+  .policy ul { margin:0 0 14px 20px; }
+  .policy li { margin-bottom:8px; }
+  .policy a { color:var(--orange); }
+
+  .contact-box {
+    margin-top:32px; padding:20px 22px; background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius);
+  }
+  .contact-box p { margin-bottom:6px; }
+  .contact-box a { color:var(--orange); font-weight:600; text-decoration:none; }
+  .contact-box a:hover { text-decoration:underline; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition:none!important; animation:none!important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="/" class="back-link" data-magnetic="0.25">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Voltar ao site
+  </a>
+  <a href="/" class="brand">
+    <svg width="28" height="28" viewBox="0 0 100 100" fill="none" aria-hidden="true"><rect width="100" height="100" rx="20" fill="#4C82F7"/><path d="M50 20 L50 30 M35 35 L50 30 L65 35 M28 55 L50 30 L72 55" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M22 72 Q36 58 50 65 Q64 58 78 72" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" fill="none"/><circle cx="50" cy="26" r="5" fill="#FFFFFF"/></svg>
+    <span>Ascend <span style="color:#4C82F7">Digital</span></span>
+  </a>
+</div>
+
+<div class="wrapper">
+
+  <div class="header">
+    <div class="badge">Privacidade</div>
+    <h1>Política de Privacidade</h1>
+    <p class="subtitle">Como a Ascend Digital coleta, usa e protege os dados que você compartilha pelo site, em conformidade com a LGPD (Lei nº 13.709/2018).</p>
+    <p class="updated">Última atualização: setembro de 2026</p>
+  </div>
+
+  <div class="policy">
+    <h2>1. Quais dados coletamos</h2>
+    <p>Só coletamos o que você mesmo nos envia, por vontade própria, em dois formulários:</p>
+    <ul>
+      <li><strong>Briefing de projeto</strong> — nome, WhatsApp, e-mail, nome do negócio, tipo de projeto, prazo, ferramentas que você já usa, os indicadores que quer acompanhar e a descrição do que precisa ser resolvido.</li>
+      <li><strong>Depoimento</strong> — nome, nota e o texto do depoimento (publicado só depois de revisado).</li>
+    </ul>
+    <p>Não usamos cookies de rastreamento, pixels de publicidade nem compramos dados de terceiros.</p>
+
+    <h2>2. Para que usamos esses dados</h2>
+    <ul>
+      <li>Entrar em contato pelo WhatsApp ou e-mail com um diagnóstico e uma proposta de escopo.</li>
+      <li>Exibir, no site, os depoimentos que você autorizou publicar.</li>
+      <li>Nada além disso — não enviamos e-mail em massa, não repassamos seus dados a terceiros e não usamos pra treinar nenhum modelo.</li>
+    </ul>
+
+    <h2>3. Onde os dados ficam armazenados</h2>
+    <p>Os formulários são processados por funções de borda (Supabase Edge Functions) e guardados num banco de dados Postgres com controle de acesso por linha (Row Level Security): briefings e depoimentos pendentes só podem ser lidos pela conta administradora da Ascend Digital — nunca ficam públicos por padrão.</p>
+
+    <h2>4. Cookies e armazenamento local</h2>
+    <p>O site <strong>não usa cookies de rastreamento ou de publicidade</strong>. Usamos o <code>localStorage</code> do navegador só para duas coisas, ambas técnicas:</p>
+    <ul>
+      <li>manter a sessão de quem faz login no painel interno (<code>/admin</code>);</li>
+      <li>lembrar que você já viu este aviso de privacidade, pra não mostrar de novo.</li>
+    </ul>
+    <p>Esses dados ficam só no seu navegador — não são enviados a servidores de terceiros.</p>
+
+    <h2>5. Seus direitos (LGPD, art. 18)</h2>
+    <p>Você pode, a qualquer momento, pedir:</p>
+    <ul>
+      <li>confirmação de que tratamos algum dado seu, e acesso a ele;</li>
+      <li>correção de dado incompleto, desatualizado ou incorreto;</li>
+      <li>exclusão dos seus dados (por exemplo, apagar um depoimento ou um briefing enviado);</li>
+      <li>informação sobre com quem compartilhamos seus dados (resposta curta: com ninguém).</li>
+    </ul>
+
+    <h2>6. Contato</h2>
+    <p>Pra exercer qualquer um desses direitos, ou tirar dúvida sobre este documento, fale direto pelo WhatsApp:</p>
+    <div class="contact-box">
+      <p><strong>Ascend Digital</strong></p>
+      <p><a href="https://wa.me/5511954895398" target="_blank" rel="noopener">wa.me/5511954895398</a></p>
+    </div>
+  </div>
+
+</div>
+
+<script src="/js/pointer-fx.js" defer></script>
+</body>
+</html>

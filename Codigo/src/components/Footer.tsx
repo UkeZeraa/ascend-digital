@@ -13,6 +13,7 @@ const Footer = () => (
           { href: "#como-funciona", label: "Como funciona" },
           { href: "#planos", label: "Planos" },
           { href: "#briefing", label: "Contato" },
+          { href: "/privacidade.html", label: "Privacidade" },
         ].map((l) => (
           <a key={l.href} href={l.href} className="text-[13px] text-[rgba(255,255,255,0.5)] no-underline transition-colors hover:text-orange">{l.label}</a>
         ))}
