@@ -50,11 +50,18 @@ const Navbar = () => {
       }`}
     >
       <div className="container h-full flex items-center justify-between">
-        <a href="#hero" className="flex items-center gap-2.5 no-underline" aria-label="Ascend Digital — início">
+        <a href="#hero" className="flex items-center gap-2.5 no-underline group" aria-label="Ascend Digital — início">
           <AscendLogo />
-          <div className="font-display text-lg font-extrabold tracking-tight text-ink">
-            Ascend <span className="text-orange">Digital</span>
-          </div>
+          <Magnetic strength={0.2} max={5} className="relative isolate">
+            {/* Luz suave atrás do nome, só no hover/foco — some em prefers-reduced-motion (transição zerada). */}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute -inset-2.5 -z-10 rounded-full opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100 bg-[radial-gradient(circle,rgba(76,130,247,0.4)_0%,rgba(34,195,166,0.18)_50%,transparent_75%)]"
+            />
+            <div className="font-display text-lg font-extrabold tracking-tight text-ink">
+              Ascend <span className="text-orange">Digital</span>
+            </div>
+          </Magnetic>
         </a>
 
         {/* Desktop */}

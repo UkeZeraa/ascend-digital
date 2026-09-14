@@ -7,6 +7,21 @@ Plano da última reorganização: `plano-reorganizacao.md` (nesta pasta).
 
 ---
 
+## 2026-09-13 — Efeito de hover no wordmark da Navbar (imã + luz)
+
+Pedido do dono: quando passa o mouse sobre "Ascend Digital" na navbar, o texto levanta um
+pouquinho em direção do cursor e surge uma luz suave atrás do nome. Nova logo (símbolo
+gerado no Higgsfield) aguardando o arquivo do dono pra entrar no lugar do SVG interino.
+
+| Arquivo | Ação | Motivo |
+|---|---|---|
+| `src/components/Navbar.tsx` | alterado | Wordmark envolto em `<Magnetic strength={0.2} max={5}>` (reaproveita `useMagnetic`/`canAnimate()` já existentes — desliga sozinho em touch/`prefers-reduced-motion`) — puxa o texto até 5px na direção do cursor. Adicionado um `<span>` absoluto atrás do texto com `radial-gradient` azul/teal borrado (`blur-lg`), `opacity-0` → `opacity-100` em `group-hover`/`group-focus-within` (transição 300ms, zerada em reduced-motion). `<a>` ganhou `group` e o wrapper `relative isolate` (contém o `-z-10` do brilho sem vazar stacking pra fora). |
+
+Pendente: dono vai mandar o arquivo do símbolo gerado (Higgsfield) pra substituir o `AscendLogo`
+SVG interino em `Navbar.tsx`/`Footer.tsx`/`public/*.html`.
+
+---
+
 ## 2026-09-12 — Depoimentos de empresas fictícias (sem foto), sem aspas decorativas, preço + mensalidade
 
 Pedido do dono: (1) tirar a aspa decorativa gigante do card de depoimento; (2) as "fotos"
