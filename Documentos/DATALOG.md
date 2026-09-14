@@ -7,6 +7,33 @@ Plano da última reorganização: `plano-reorganizacao.md` (nesta pasta).
 
 ---
 
+## 2026-09-14 (2) — Logo definitiva (gerada no Higgsfield) + WhatsApp trocado
+
+Dono mandou o PNG gerado (símbolo "A"/seta ascendente, azul + teal, fundo branco). Como não
+dá pra receber bytes de imagem colados na conversa, ele salvou em `Downloads/` e eu processei
+e apliquei no lugar do SVG interino em todo o site. WhatsApp também trocou de número.
+
+### Logo
+| Arquivo | Ação | Motivo |
+|---|---|---|
+| `public/img/logo/symbol.png` | novo | Master 512×512, fundo removido (flood-fill a partir da borda — evita o "ruído" de um threshold de cor global, que apagava pontos claros dentro do próprio desenho) preservando os recortes internos da letra "A" como transparência de verdade. Gerado a partir do PNG que o dono baixou (`ChatGPT Image 13 de set. de 2026, 21_16_05.png`, 1254×1254, fundo branco). |
+| `public/img/logo/favicon-64.png` | novo | Mesmo processo, 64×64, para o favicon. |
+| `index.html` | alterado | `<link rel="icon" type="image/png" href="/img/logo/favicon-64.png">` (novo, antes do `favicon.ico` implícito). |
+| `src/components/Navbar.tsx` | alterado | `AscendLogo` deixa de ser SVG inline e vira `<img src="/img/logo/symbol.png" width=36 height=36>`. |
+| `src/components/Footer.tsx` | alterado | Monograma "AD" (caixa colorida + texto) → mesma imagem, 34×34. |
+| `public/briefing.html`, `public/privacidade.html`, `public/portfolio.html` | alterado | SVG inline do `.brand`/`.nav-logo` → `<img src="/img/logo/symbol.png">` (28/28/34px). |
+
+### WhatsApp
+Número trocado de `5511954895398` para **`5511925779432`** — `(11) 92577-9432`.
+| Arquivo | Ação |
+|---|---|
+| `index.html`, `src/components/WhatsAppButton.tsx`, `src/components/Pricing.tsx`, `public/briefing.html`, `public/portfolio.html`, `public/privacidade.html` | alterado — todos os links `wa.me/` e o texto exibido no `<noscript>` do `index.html`. |
+
+Verificação: `npm run typecheck` limpo · `npm run lint` só os 3 erros pré-existentes ·
+`npm run build` limpo (`dist/img/logo/*.png` presentes) · `npm test` 16/16.
+
+---
+
 ## 2026-09-14 — Varredura de segurança do banco + aviso de privacidade (LGPD)
 
 Pedido do dono: "segurança de ponta a ponta de SSH pra proteger os bancos" (não existe SSH

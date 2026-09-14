@@ -163,7 +163,7 @@ const Pricing = () => {
         <p className="text-center text-[13px] text-muted-custom mt-8">
           Não sabe qual encaixa?{" "}
           <a
-            href="https://wa.me/5511954895398?text=Ol%C3%A1!%20Quero%20ajuda%20pra%20escolher%20um%20plano%20da%20Ascend%20Digital"
+            href="https://wa.me/5511925779432?text=Ol%C3%A1!%20Quero%20ajuda%20pra%20escolher%20um%20plano%20da%20Ascend%20Digital"
             target="_blank"
             rel="noopener noreferrer"
             className="text-orange font-semibold no-underline hover:underline"

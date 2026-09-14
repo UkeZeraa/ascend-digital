@@ -18,12 +18,7 @@ const NAV_LINKS = [
 ];
 
 const AscendLogo = () => (
-  <svg width="36" height="36" viewBox="0 0 100 100" fill="none" aria-hidden="true">
-    <rect width="100" height="100" rx="20" fill="#4C82F7" />
-    <path d="M50 20 L50 30 M35 35 L50 30 L65 35 M28 55 L50 30 L72 55" stroke="#FFFFFF" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-    <path d="M22 72 Q36 58 50 65 Q64 58 78 72" stroke="#FFFFFF" strokeWidth="5" strokeLinecap="round" fill="none" />
-    <circle cx="50" cy="26" r="5" fill="#FFFFFF" />
-  </svg>
+  <img src="/img/logo/symbol.png" alt="" width="36" height="36" className="shrink-0" aria-hidden="true" />
 );
 
 const ArrowIcon = () => (

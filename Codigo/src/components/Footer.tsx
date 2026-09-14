@@ -2,7 +2,7 @@ const Footer = () => (
   <footer className="bg-ink border-t border-[rgba(255,255,255,0.06)] py-10">
     <div className="container flex items-center justify-between flex-wrap gap-5">
       <div className="flex items-center gap-2.5">
-        <div className="w-[34px] h-[34px] bg-orange rounded-[10px] flex items-center justify-center font-display text-sm font-black text-primary-foreground" aria-hidden="true">AD</div>
+        <img src="/img/logo/symbol.png" alt="" width="34" height="34" className="shrink-0" aria-hidden="true" />
         <div className="font-display text-[17px] font-extrabold tracking-[-0.02em] text-ink">
           Ascend <span className="text-orange">Digital</span>
         </div>

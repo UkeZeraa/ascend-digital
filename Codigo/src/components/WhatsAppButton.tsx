@@ -1,5 +1,5 @@
 const WHATSAPP_URL =
-  "https://wa.me/5511954895398?text=" +
+  "https://wa.me/5511925779432?text=" +
   encodeURIComponent(
     "Olá! Vim pelo site da Ascend Digital e quero conversar sobre automação / dashboard / site.",
   );
