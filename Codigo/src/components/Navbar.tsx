@@ -9,6 +9,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Magnetic } from "@/components/motion";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const NAV_LINKS = [
   { href: "#como-funciona", label: "Como funciona" },
@@ -71,6 +72,9 @@ const Navbar = () => {
               </a>
             </li>
           ))}
+          <li>
+            <ThemeToggle />
+          </li>
           <li>
             <Magnetic>
               <a

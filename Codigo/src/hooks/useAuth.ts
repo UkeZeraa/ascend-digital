@@ -11,6 +11,8 @@ type AuthState = {
 
 async function checkAdmin(userId: string | undefined): Promise<boolean> {
   if (!userId) return false;
+  const { data: assurance, error: assuranceError } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+  if (assuranceError || assurance.currentLevel !== "aal2") return false;
   const { data, error } = await supabase
     .from("user_roles")
     .select("role")
@@ -49,6 +51,11 @@ export function useAuth() {
   const signIn = useCallback(async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) throw error;
+    const { data: assurance } = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+    if (assurance.currentLevel !== "aal2") {
+      await supabase.auth.signOut();
+      throw new Error("MFA obrigatoria: ative um segundo fator para acessar o painel.");
+    }
   }, []);
 
   const signOut = useCallback(async () => {

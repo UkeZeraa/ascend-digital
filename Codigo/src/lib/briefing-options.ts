@@ -6,6 +6,8 @@
  */
 
 export const PROJECT_TYPES = [
+  "Site Essencial",
+  "Site Institucional",
   "Automação de processo",
   "Dashboard de KPIs",
   "Site institucional / landing page",
@@ -22,6 +24,8 @@ export const DEADLINES = [
 ] as const;
 
 export const PLANS = [
+  "Site Essencial — R$ 450 + R$ 79,90/mês",
+  "Site Institucional — R$ 800 + manutenção mensal",
   "Automação — a partir de R$ 900",
   "Dashboard de KPIs — a partir de R$ 1.200",
   "Operação completa — sob consulta",

@@ -17,6 +17,24 @@ type Plan = {
 
 const plans: Plan[] = [
   {
+    name: "Site Essencial",
+    tagline: "Uma presenca profissional para o seu negocio",
+    price: "R$ 450",
+    priceNote: "projeto",
+    monthly: "+ R$ 79,90/mês para publicacao e manutencao",
+    featured: true,
+    popular: true,
+    features: [
+      { text: "Uma pagina com ate cinco secoes", included: true, bold: true },
+      { text: "Adaptacao para celular", included: true },
+      { text: "Botao direto para WhatsApp", included: true },
+      { text: "Publicacao e uma rodada de ajustes", included: true },
+      { text: "Loja virtual, login e integracoes complexas", included: false },
+    ],
+    btnStyle: "solid",
+    btnLabel: "Quero meu site",
+  },
+  {
     name: "Automação",
     tagline: "Pra tirar um processo repetitivo das costas do seu time",
     price: "R$ 900",
@@ -91,7 +109,7 @@ const Pricing = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-12 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mt-12 items-start">
           {plans.map((plan) => (
             <TiltCard
               key={plan.name}

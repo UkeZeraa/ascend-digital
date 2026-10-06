@@ -1,5 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
-import { buildCors, jsonResponse } from "../_shared/cors.ts";
+import { buildCors, jsonResponse, rejectDisallowedOrigin } from "../_shared/cors.ts";
 import { clientIp, isRateLimited } from "../_shared/rate-limit.ts";
 import { isHoneypotTripped, validateBriefing } from "../_shared/validate.ts";
 import { sendBriefingEmail } from "../_shared/notify.ts";
@@ -10,6 +10,8 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: buildCors(origin) });
   }
+  const originError = rejectDisallowedOrigin(origin);
+  if (originError) return originError;
   if (req.method !== "POST") {
     return jsonResponse({ error: "Method not allowed" }, 405, origin);
   }

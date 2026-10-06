@@ -10,23 +10,23 @@
        Fundo #0B0D10 · Superfície #14171C · Superfície-2 #101319
        Texto #E6E9EE · Muted #8A929E
        Acento (azul elétrico) #4C82F7 · Acento-2 (teal) #22C3A6 · Destaque #FFFFFF */
-    --background: 214 16% 6%;
-    --foreground: 220 16% 92%;
+    --background: 210 20% 98%;
+    --foreground: 222 47% 11%;
 
-    --card: 219 15% 10%;
-    --card-foreground: 220 16% 92%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
 
-    --popover: 219 15% 10%;
-    --popover-foreground: 220 16% 92%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
 
     --primary: 221 91% 63%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 219 12% 16%;
-    --secondary-foreground: 220 16% 92%;
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 222 47% 11%;
 
-    --muted: 219 12% 16%;
-    --muted-foreground: 216 9% 58%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 16% 40%;
 
     --accent: 169 71% 45%;
     --accent-foreground: 214 16% 6%;
@@ -34,8 +34,8 @@
     --destructive: 0 72% 62%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 218 16% 16%;
-    --input: 218 16% 16%;
+    --border: 214 20% 88%;
+    --input: 214 20% 88%;
     --ring: 221 91% 63%;
 
     --radius: 14px;
@@ -43,20 +43,20 @@
     /* Vars hex repropositadas: os nomes antigos continuam, o papel mudou.
        --ink/--ink2 agora são TEXTO CLARO; --cream/--cream2 agora são SUPERFÍCIE ESCURA;
        --orange agora é o AZUL de acento. */
-    --ink: #E6E9EE;
-    --ink2: #C4C9D2;
+    --ink: #101828;
+    --ink2: #344054;
     --bg: #0B0D10;
-    --surface: #14171C;
-    --surface-2: #101319;
+    --surface: #FFFFFF;
+    --surface-2: #F7F9FC;
     --orange: #4C82F7;
     --orange2: #3B71E8;
     --orange-dim: rgba(76,130,247,0.12);
     --amber: #E3B341;
     --emerald: #22C3A6;
-    --cream: #14171C;
-    --cream2: #101319;
-    --sand: #232830;
-    --muted-color: #8A929E;
+    --cream: #FFFFFF;
+    --cream2: #F7F9FC;
+    --sand: #E4E7EC;
+    --muted-color: #667085;
     --white: #FFFFFF;
 
     --sidebar-background: 216 16% 8%;
@@ -67,6 +67,29 @@
     --sidebar-accent-foreground: 220 16% 92%;
     --sidebar-border: 218 16% 16%;
     --sidebar-ring: 221 91% 63%;
+  }
+
+  .theme-dark {
+    --background: 214 16% 6%;
+    --foreground: 220 16% 92%;
+    --card: 219 15% 10%;
+    --card-foreground: 220 16% 92%;
+    --popover: 219 15% 10%;
+    --popover-foreground: 220 16% 92%;
+    --secondary: 219 12% 16%;
+    --secondary-foreground: 220 16% 92%;
+    --muted: 219 12% 16%;
+    --muted-foreground: 216 9% 58%;
+    --border: 218 16% 16%;
+    --input: 218 16% 16%;
+    --ink: #E6E9EE;
+    --ink2: #C4C9D2;
+    --surface: #14171C;
+    --surface-2: #101319;
+    --cream: #14171C;
+    --cream2: #101319;
+    --sand: #232830;
+    --muted-color: #8A929E;
   }
 }
 
@@ -98,6 +121,11 @@
     outline-offset: 2px;
     border-radius: 4px;
   }
+
+  .bg-ink .text-ink { color: #F3F4F6; }
+  .bg-ink .text-ink2 { color: #CBD5E1; }
+  .bg-ink .text-muted-custom { color: #94A3B8; }
+  nav .text-ink, nav .text-ink2 { color: #F3F4F6; }
 }
 
 @layer utilities {

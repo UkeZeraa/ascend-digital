@@ -41,6 +41,16 @@ export function buildCors(origin: string | null): Record<string, string> {
   };
 }
 
+export function rejectDisallowedOrigin(origin: string | null): Response | null {
+  if (origin && !isAllowedOrigin(origin)) {
+    return new Response(JSON.stringify({ error: "Origin not allowed" }), {
+      status: 403,
+      headers: { "Content-Type": "application/json", Vary: "Origin" },
+    });
+  }
+  return null;
+}
+
 export function jsonResponse(body: unknown, status: number, origin: string | null): Response {
   return new Response(JSON.stringify(body), {
     status,
