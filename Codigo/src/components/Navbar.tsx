@@ -13,7 +13,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 
 const NAV_LINKS = [
   { href: "#como-funciona", label: "Como funciona" },
-  { href: "#casos", label: "Casos" },
+  { href: "#casos", label: "Demonstrações" },
   { href: "#depoimentos", label: "Depoimentos" },
   { href: "#planos", label: "Planos" },
 ];
