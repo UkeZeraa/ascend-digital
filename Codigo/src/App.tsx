@@ -8,6 +8,7 @@ import CookieConsent from "@/components/CookieConsent";
 import Index from "./pages/Index.tsx";
 import Admin from "./pages/Admin.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import Analytics from "./components/Analytics";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +17,7 @@ const App = () => (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <CookieConsent />
+        <Analytics />
         <Toaster />
         <Sonner />
         <BrowserRouter>

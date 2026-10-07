@@ -20,7 +20,7 @@
         { "key": "Cross-Origin-Resource-Policy", "value": "same-origin" },
         { "key": "X-DNS-Prefetch-Control", "value": "off" },
         { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://fjxwyqtxtszasxrqqfpd.supabase.co wss://fjxwyqtxtszasxrqqfpd.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'" }
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://fjxwyqtxtszasxrqqfpd.supabase.co wss://fjxwyqtxtszasxrqqfpd.supabase.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'" }
       ]
     },
     {
