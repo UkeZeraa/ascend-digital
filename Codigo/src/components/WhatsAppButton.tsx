@@ -10,6 +10,7 @@ const WhatsAppButton = () => (
     target="_blank"
     rel="noopener noreferrer"
     aria-label="Falar pelo WhatsApp"
+    onClick={() => trackEvent("whatsapp_click", { placement: "floating_button" })}
     className="fixed bottom-7 right-7 w-[58px] h-[58px] bg-[#25D366] rounded-full flex items-center justify-center shadow-[0_6px_24px_rgba(37,211,102,0.4)] z-[9000] transition-all duration-200 no-underline hover:scale-[1.08] hover:-translate-y-0.5 hover:shadow-[0_10px_32px_rgba(37,211,102,0.5)]"
   >
     <span className="absolute inset-[-4px] rounded-full border-2 border-[rgba(37,211,102,0.3)] animate-waping" aria-hidden="true" />
@@ -21,3 +22,4 @@ const WhatsAppButton = () => (
 );
 
 export default WhatsAppButton;
+import { trackEvent } from "@/lib/analytics";

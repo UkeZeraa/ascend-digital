@@ -15,6 +15,7 @@ const NAV_LINKS = [
   { href: "#como-funciona", label: "Como funciona" },
   { href: "#casos", label: "Demonstrações" },
   { href: "#planos", label: "Planos" },
+  { href: "#duvidas", label: "Dúvidas" },
 ];
 
 const AscendLogo = () => (

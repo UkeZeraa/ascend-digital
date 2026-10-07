@@ -3,6 +3,7 @@ import { useId, useState } from "react";
 import { PROJECT_TYPES, DEADLINES, PLANS } from "@/lib/briefing-options";
 import { validateBriefing } from "@/lib/validators";
 import { useToast } from "@/hooks/use-toast";
+import { trackEvent } from "@/lib/analytics";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string | undefined;
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined;
@@ -82,6 +83,7 @@ const BriefingForm = () => {
     }
 
     setLoading(true);
+    trackEvent("briefing_start", { project_type: form.project_type });
     try {
       const res = await fetch(`${SUPABASE_URL}/functions/v1/submit-briefing`, {
         method: "POST",
@@ -104,6 +106,7 @@ const BriefingForm = () => {
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error((data as { error?: string }).error || "Não foi possível enviar agora.");
 
+      trackEvent("briefing_submit", { project_type: form.project_type, plan: form.plan || "not_selected" });
       setSubmitted(true);
     } catch (err) {
       toast({

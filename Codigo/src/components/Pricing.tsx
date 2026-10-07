@@ -1,4 +1,5 @@
 import { Magnetic, TiltCard } from "@/components/motion";
+import { trackEvent } from "@/lib/analytics";
 
 type Plan = {
   name: string;
@@ -135,12 +136,12 @@ const Pricing = () => {
 
               {plan.btnStyle === "solid" ? (
                 <Magnetic className="w-full">
-                  <a href="#briefing" className="block w-full py-3.5 rounded-full font-display text-sm font-bold text-center no-underline transition-colors duration-200 bg-orange text-primary-foreground shadow-orange hover:bg-orange2">
+                  <a href="#briefing" onClick={() => trackEvent("plan_click", { plan: plan.name })} className="block w-full py-3.5 rounded-full font-display text-sm font-bold text-center no-underline transition-colors duration-200 bg-orange text-primary-foreground shadow-orange hover:bg-orange2">
                     {plan.btnLabel}
                   </a>
                 </Magnetic>
               ) : (
-                <a href="#briefing" className="block w-full py-3.5 rounded-full font-display text-sm font-bold text-center no-underline transition-all duration-200 bg-transparent border-2 border-sand text-ink hover:border-orange hover:text-orange">
+                <a href="#briefing" onClick={() => trackEvent("plan_click", { plan: plan.name })} className="block w-full py-3.5 rounded-full font-display text-sm font-bold text-center no-underline transition-all duration-200 bg-transparent border-2 border-sand text-ink hover:border-orange hover:text-orange">
                   {plan.btnLabel}
                 </a>
               )}

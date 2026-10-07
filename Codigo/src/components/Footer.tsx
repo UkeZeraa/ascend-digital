@@ -12,6 +12,7 @@ const Footer = () => (
         {[
           { href: "#como-funciona", label: "Como funciona" },
           { href: "#planos", label: "Planos" },
+          { href: "#duvidas", label: "Dúvidas" },
           { href: "#briefing", label: "Contato" },
           { href: "/privacidade.html", label: "Privacidade" },
         ].map((l) => (
