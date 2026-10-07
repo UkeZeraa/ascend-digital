@@ -241,7 +241,7 @@ const BriefingForm = () => {
                   {fieldError("current_tools")}
                 </div>
 
-                <div className="mb-4">
+                <div className="mb-4 hidden">
                   <label htmlFor={`${uid}-kpis`} className={labelClass}>Números que você quer acompanhar</label>
                   <input id={`${uid}-kpis`} type="text" name="kpis" value={form.kpis} onChange={handleChange} placeholder="Ex: vendas/dia, taxa de conversão, tempo de resposta" className={`${inputClass} ${borderFor("kpis")}`} {...aria("kpis")} />
                   {fieldError("kpis")}

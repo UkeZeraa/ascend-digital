@@ -73,6 +73,9 @@ const plans: Plan[] = [
   },
 ];
 
+const whatsappForPlan = (plan: string) =>
+  `https://wa.me/5511925779432?text=${encodeURIComponent(`Olá! Quero conversar sobre o plano ${plan} da Ascend Digital.`)}`;
+
 const Pricing = () => {
   return (
     <section id="planos" className="py-24 bg-cream2">
@@ -145,6 +148,9 @@ const Pricing = () => {
                   {plan.btnLabel}
                 </a>
               )}
+              <a href={whatsappForPlan(plan.name)} target="_blank" rel="noopener noreferrer" onClick={() => trackEvent("whatsapp_click", { placement: "plan_card", plan: plan.name })} className="mt-3 text-center text-xs font-semibold text-orange no-underline hover:underline">
+                Tirar dúvida no WhatsApp
+              </a>
             </TiltCard>
           ))}
         </div>
